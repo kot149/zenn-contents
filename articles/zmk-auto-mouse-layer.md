@@ -11,7 +11,7 @@ published: true
 オートマウスレイヤーとは、**「マウスカーソルを動かすと、自動的に一定時間マウスレイヤーが有効になる機能」** のことです。
 自動マウスレイヤー、または略してAMLと呼ばれる場合もあります。
 
-AMLを利用することで、[Keyballシリーズ](https://shirogane-lab.net/items/64b8f8693ee3fd0045280190)のようなトラックボール付きキーボードにおいて、デフォルトレイヤーのキー数を節約しながら、スムーズにキー入力とマウス操作を切り替えることが可能になります。
+AMLを利用することで、[Keyballシリーズ](https://shirogane-lab.net/items/64b8f8693ee3fd0045280190)のようなトラックボール付きキーボードにおいて、デフォルトレイヤーのキー数を節約しつつ、キー入力とマウス操作をスムーズに切り替えることが可能になります。
 
 この記事では、Keyball/QMKのAMLにあるような
 
@@ -21,7 +21,7 @@ AMLを利用することで、[Keyballシリーズ](https://shirogane-lab.net/it
 
 [^1]: https://github.com/negokaz/keyball/pull/2
 
-という機能をZMKで設定する方法を解説します。
+などの機能をZMKで設定する方法を解説します。
 
 :::message
 この記事では、トラックボール付きキーボードの[roBa](https://github.com/kumamuk-git/roBa)を使用する想定で記述しますが、他のZMKを採用したキーボードにも共通して使えます。
@@ -35,11 +35,11 @@ ZMKのオートマウスレイヤーには
 1. [zmk-pmw3610-driver](https://github.com/inorichi/zmk-pmw3610-driver)[^2] で実装されているもの
 2. [Input Processor](https://zmk.dev/docs/keymaps/input-processors) を使用したもの
 
-の2種類があります。
+の2種類が存在します。
 
 [^2]: [zmk-pmw3610-driver](https://github.com/inorichi/zmk-pmw3610-driver)はZMKでPMW3610を使用するためのドライバーです。PMW3610はマウスセンサーで、[roBa](https://github.com/kumamuk-git/roBa)や[moNa2](https://github.com/sayu-hub/zmk-config-moNa2)といった多くのZMKトラボ付きキーボードで採用されています。zmk-pmw3610-driverにはいくつか派生(fork)があり、[badjeff氏のフォーク](https://github.com/badjeff/zmk-pmw3610-driver)などでは、Input ProcessorでAMLが可能になったので、AML機能が削除されています。
 
-zmk-pmw3610-driverのAML機能は非常に単純で、QMKにあるような、
+zmk-pmw3610-driverのAML機能は非常にシンプルで、QMKにあるような、
 
 - 非マウスキーを押したらマウスレイヤーを抜ける
 - マウスキーを押したらタイムアウトを延長する
@@ -115,15 +115,15 @@ Input Processorを使用する場合は、zmk-pmw3610-driverのAMLは無効化�
 ```
 :::
 
-### 非マウスキーを押したらタイムアウト関係なくマウスレイヤーを抜ける
+### 非マウスキーを押したらタイムアウトに関係なくマウスレイヤーを抜ける
 
 Input Processorを使用したAMLでは、`excluded-positions`を設定することで、そのキー以外を押したときにAML解除されるようになります。
 
 :::message
 **注意点**:
-- QMKのようにマウスキーがあらかじめ定義されていないので、手動で`excluded-positions`に加える必要がある
-- `excluded-positions`を設定しなかった場合、「どのキーを押してもAMLが**解除されない**」。この仕様はちょっと分かりづらい…
-- `excluded-positions`のキーを押してもタイムアウトの延長はしてくれないので、別途設定が必要
+- QMKのようにマウスキーがあらかじめ定義されていないため、手動で`excluded-positions`に加える必要がある
+- `excluded-positions`を設定しなかった場合、「どのキーを押してもAMLが**解除されない**」。この仕様は少し分かりづらい…
+- `excluded-positions`のキーを押してもタイムアウトの延長はされないため、別途設定が必要
 :::
 
 #### 設定例
@@ -188,7 +188,7 @@ positionを知るには、[Keymap Editor](https://nickcoutsos.github.io/keymap-e
 #include <input/processors.dtsi>
 
 &mkp_input_listener {
-    input-processors = <&zip_temp_layer 5 10000>;
+    input-processors = <&zip_temp_layer 5 250>;
 };
 ```
 
@@ -198,7 +198,7 @@ positionを知るには、[Keymap Editor](https://nickcoutsos.github.io/keymap-e
 CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=100000
 ```
 
-または
+または、Input Processorを使用している場合:
 
 ```dts:roBa_R.overlay
 #include <input/processors.dtsi>
@@ -216,23 +216,23 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=100000
 
 ShiftキーをZキーのMod Tap(`&mt LEFT_SHIFT Z`)にしているような場合、上記のInput Processorを使用したAMLだと、
 「マウスカーソルを動かす → Shiftを押す → クリックする」
-という動作によりテキストを選択しようとすると、Shiftを押した段階でAMLが解除されてしまい、クリックのつもりがキー入力になってしまうというようなことが起こります。
+という操作によりテキストを選択しようとすると、Shiftを押した段階でAMLが解除されてしまい、クリックのつもりがキー入力になってしまうというようなことが起こります。
 
-必ずShiftを押した後にマウスカーソルを動かすようにすれば対処できますが、ちょっと面倒です。
+必ずShiftを押した後にマウスカーソルを動かすようにすれば対処できますが、少し面倒です。
 `excluded-positions`に設定する手もありますが、それだとZを入力したときにAMLが解除されず、誤爆の原因になります。
 
 これは、タップ時のみAML解除するbehaviorを定義することで解決できます。
 
 #### 設定方法
 
-1. レイヤーを無効化するbehavior `tog_off`[^3] を定義する
+1. レイヤーを無効化するbehavior `tog_off`[^3]を定義する
 1. AMLを解除するマクロ`exit_AML`を作る
-2. キー押下後にAMLを解除するマクロ`kp_exit_AML`を作る
-3. ホールド時は`kp`、タップ時は`kp_exit_AML`を使うhold-tap behavior `mt_exit_AML_on_tap`を定義する
-4. `mt_exit_AML_on_tap`を`mt`の代わりに使う
-5. そのキーの位置を`excluded-positions`に入れる
+3. キー押下後にAMLを解除するマクロ`kp_exit_AML`を作る
+4. ホールド時は`kp`、タップ時は`kp_exit_AML`を使うhold-tap behavior `mt_exit_AML_on_tap`を定義する
+5. `mt_exit_AML_on_tap`を`mt`の代わりに使う
+6. そのキーの位置を`excluded-positions`に入れる
 
-これによりホールド時はAML解除せず、タップ時のみAML解除するという動作が可能になります。
+これによりホールド時はAMLを解除せず、タップ時のみAMLを解除するという動作が可能になります。
 
 [^3]: [ZMKの公式ドキュメント](https://zmk.dev/docs/keymaps/behaviors/layers#toggle-layer)に記載されているものです。[これらを標準搭載しようというPR](https://github.com/zmkfirmware/zmk/pull/2943)があるので、これがマージされれば自分で定義しなくても使えるようになります。
 
@@ -286,7 +286,7 @@ ShiftキーをZキーのMod Tap(`&mt LEFT_SHIFT Z`)にしているような場�
 
 Input Processorを使わなくても、pmw3610-driverのAML+マクロで再現することもできます。
 
-今あえてInput Processorを使わずにpmw3610-driverのAML+マクロで頑張る理由は特にないですが、過去にInput Processorの不具合でフリーズすることがあった(今は修正済み)のでそういうときの代替手段として使えました。
+今あえてInput Processorを使わずにpmw3610-driverのAML+マクロで頑張る理由は特にありませんが、過去にInput Processorの不具合でフリーズすることがあった(現在は修正済み)ため、そういった場合の代替手段として使用できました。
 
 ZMKは一見融通が利かないように見えて、実は大抵のことはマクロ+レイヤー移動で解決できてしまいます。ZMKのそういうところの面白さや魅力を感じていただければ幸いです。
 
@@ -294,7 +294,7 @@ ZMKは一見融通が利かないように見えて、実は大抵のことは�
 `exit_AML`を仕込んだ`kp`、`mt`、`mo`、`lt`を作り、代わりに使います。
 タイムアウトに関連する動作はSticky Layer(`sl`)を組み合わせることで作れます。
 
-キー長押しで連打が効かなくなる場合があるので、そういう場合はholdのみ/tapのみAML解除するものを使えば良いです。(どっちだったかは忘れました)
+キー長押しで連打が効かなくなる場合があるので、そのような場合はholdのみ/tapのみAML解除するものを使えば良いです。(どっちだったかは忘れました)
 
 「マウスキーを押したらタイムアウトを延長する」「マウスキーを押すまでマウスレイヤーに留まる」には、`mkp_exit_AML`を使います。
 
