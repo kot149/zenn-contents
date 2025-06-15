@@ -121,6 +121,7 @@ Input Processorを使用したAMLでは、`excluded-positions`を設定するこ
 
 :::message
 **注意点**:
+- QMKのようにマウスキーがあらかじめ定義されていないので、手動で`excluded-positions`に加える必要がある
 - `excluded-positions`を設定しなかった場合、「どのキーを押してもAMLが**解除されない**」。この仕様はちょっと分かりづらい…
 - `excluded-positions`のキーを押してもタイムアウトの延長はしてくれないので、別途設定が必要
 :::
