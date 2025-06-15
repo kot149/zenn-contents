@@ -212,6 +212,31 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=100000
 };
 ```
 
+### キー入力中のAML誤爆防止
+
+キー入力中、振動や意図せずトラボに触れてしまうことが原因でAMLが発動してマウスクリックが誤爆することがあります。
+これの対策として、Input Processorを使用したAMLでは、`require-prior-idle-ms`というプロパティを設定することで、キー入力から一定時間はAMLを発動しないようにできます。
+
+#### 設定例
+
+```dts:roBa_R.overlay
+#include <input/processors.dtsi>
+/ {
+    /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
+        compatible = "zmk,input-processor-temp-layer";
+        #input-processor-cells = <2>;
+        require-prior-idle-ms = <200>;
+    };
+
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+
+        input-processors = <&zip_temp_layer 5 10000>;
+    };
+};
+```
+
 ### Shift+クリックの動作改善
 
 ShiftキーをZキーのMod Tap(`&mt LEFT_SHIFT Z`)にしているような場合、上記のInput Processorを使用したAMLだと、
@@ -284,7 +309,7 @@ ShiftキーをZキーのMod Tap(`&mt LEFT_SHIFT Z`)にしているような場�
 
 ### オマケ: 全部マクロでやる方法
 
-Input Processorを使わなくても、pmw3610-driverのAML+マクロで再現することもできます。
+キー入力中のAML誤爆防止以外は、Input Processorを使わなくても、pmw3610-driverのAML+マクロで再現できます。
 
 今あえてInput Processorを使わずにpmw3610-driverのAML+マクロで頑張る理由は特にありませんが、過去にInput Processorの不具合でフリーズすることがあった(現在は修正済み)ため、そういった場合の代替手段として使用できました。
 
