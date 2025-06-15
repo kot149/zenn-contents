@@ -80,7 +80,7 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=700
 
 ### Input Processorを使用したオートマウスレイヤー
 
-`&trackball`に対して`input-listener`を追加し、`zip_temp_layer`というInput Processorを適用します。
+`&trackball`に対して`input-listener`を追加し、[`zip_temp_layer`](https://zmk.dev/docs/keymaps/input-processors/temp-layer#user-defined-instances)というInput Processorを適用します。
 
 この例では、トラボ使用後10秒間、レイヤー5が有効になります。
 
