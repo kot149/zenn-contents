@@ -3,11 +3,11 @@
   "workspaces": {
     "": {
       "dependencies": {
-        "zenn-cli": "^0.1.160",
+        "zenn-cli": "^0.1.161",
       },
     },
   },
   "packages": {
-    "zenn-cli": ["zenn-cli@0.1.160", "", { "bin": { "zenn": "dist/server/zenn.js" } }, "sha512-BpB0DYhWOSR/yN4u6EnDmEd3mSQ88nSxzhj119L9QV4JWNC/Qbmd18Bvu68uO8q9MclETntJ77ID8HjUOR31Sg=="],
+    "zenn-cli": ["zenn-cli@0.1.161", "", { "bin": { "zenn": "dist/server/zenn.js" } }, "sha512-PVdw0zj2GwtAaYbrvN/a5C2IHIzRhAu24AYkw16r344O8FYt/29v0pnGNQFKVfZdSZlgcl5HnH7jQWmlOVdXPw=="],
   }
 }

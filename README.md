@@ -5,7 +5,7 @@ https://zenn.dev/kot149
 ## Setup
 
 ```sh
-bun install zenn-cli
+bun install zenn-cli@latest
 ```
 
 ## Creating a new article
