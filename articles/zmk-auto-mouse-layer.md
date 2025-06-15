@@ -307,7 +307,7 @@ ShiftキーをZキーのMod Tap(`&mt LEFT_SHIFT Z`)にしているような場�
 }
 ```
 
-### オマケ: 全部マクロでやる方法
+### オマケ: マクロで再現する方法
 
 キー入力中のAML誤爆防止以外は、Input Processorを使わなくても、pmw3610-driverのAML+マクロで再現できます。
 
