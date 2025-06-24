@@ -97,6 +97,18 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=700
 ```
 
 :::message
+`trackball_listener`が既に定義されている場合は、以下のような省略した記述の仕方もできます。
+
+```dts:roBa_R.keymap
+#include <input/processors.dtsi>
+
+&trackball_listener {
+    input-processors = <&zip_temp_layer 5 10000>;
+};
+```
+:::
+
+:::message alert
 Input Processorを使用する場合は、zmk-pmw3610-driverのAMLは無効化しておきましょう。
 
 ```diff dts:roBa_R.overlay
