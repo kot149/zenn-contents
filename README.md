@@ -5,8 +5,10 @@ https://zenn.dev/kot149
 ## Setup
 
 ```sh
-bun install zenn-cli@latest
+bun install
 ```
+
+Install [textlint VSCode extension](https://marketplace.visualstudio.com/items?itemName=3w36zj6.textlint)
 
 ## Creating a new article
 
