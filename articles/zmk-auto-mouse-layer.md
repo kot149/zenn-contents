@@ -133,18 +133,17 @@ Input Processorを使用したAMLでは、`excluded-positions`を設定すると
 
 ```dts:roBa_R.overlay
 #include <input/processors.dtsi>
-/ {
-    /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
-        compatible = "zmk,input-processor-temp-layer";
-        #input-processor-cells = <2>;
-        excluded-positions = <
-            18 // J
-            19 // K
-            21 // ;
-            34 // Ctrl
-        >;
-    };
 
+&zip_temp_layer {
+    excluded-positions = <
+        18 // J
+        19 // K
+        21 // ;
+        34 // Ctrl
+    >;
+};
+
+/ {
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
@@ -221,13 +220,12 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=100000
 
 ```dts:roBa_R.overlay
 #include <input/processors.dtsi>
-/ {
-    /omit-if-no-ref/ zip_temp_layer: zip_temp_layer {
-        compatible = "zmk,input-processor-temp-layer";
-        #input-processor-cells = <2>;
-        require-prior-idle-ms = <200>;
-    };
 
+&zip_temp_layer {
+    require-prior-idle-ms = <200>;
+};
+
+/ {
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
