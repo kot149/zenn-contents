@@ -80,14 +80,19 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=700
 
 ### Input Processorを使用したオートマウスレイヤー
 
-`&trackball`に対して`input-listener`を追加し、[`zip_temp_layer`](https://zmk.dev/docs/keymaps/input-processors/temp-layer#user-defined-instances)というInput Processorを適用します。
+`&trackball_listener`に[`zip_temp_layer`](https://zmk.dev/docs/keymaps/input-processors/temp-layer#user-defined-instances)というInput Processorを適用します。
+
+
+:::message
+トラックボール以外の場合は、`trackball_listener`とは違う名前がつけられている可能性があります。その場合は、`*_listener`という名前や、`compatible = "zmk,input-listener";`が指定されているものを代わりに用いてください。
+:::
 
 この例では、トラボ使用後10秒間、レイヤー5が有効になります。
 
 ```dts:roBa_R.overlay
 #include <input/processors.dtsi>
 / {
-    trackball_listener {
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
@@ -97,9 +102,18 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=700
 ```
 
 :::message
-`trackball_listener`が既に定義されている場合は、以下のような省略した記述の仕方もできます。
+`trackball_listener`は、`.overlay`ファイルか`.dtsi`ファイルに記載されていることが多いですが、以下のような形で`.keymap`ファイルに書かれている場合もあります。`.keyamp`に書かれている場合はそちらへ追加してください。
 
-```dts:roBa_R.keymap
+```dts:roBa_R.overlay
+/ {
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+    };
+};
+```
+
+```dts:roBa.keymap
 #include <input/processors.dtsi>
 
 &trackball_listener {
@@ -156,7 +170,7 @@ Input Processorを使用したAMLでは、`excluded-positions`を設定すると
 };
 
 / {
-    trackball_listener {
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
@@ -214,7 +228,7 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=100000
 ```dts:roBa_R.overlay
 #include <input/processors.dtsi>
 / {
-    trackball_listener {
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
@@ -238,7 +252,7 @@ CONFIG_PMW3610_AUTOMOUSE_TIMEOUT_MS=100000
 };
 
 / {
-    trackball_listener {
+    trackball_listener: trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
 
