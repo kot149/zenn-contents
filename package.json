@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "dev": "zenn preview",
+    "preview": "zenn preview",
+    "new": "zenn new:article",
+    "update-zenn-cli": "bun install zenn-cli@latest"
+  },
   "devDependencies": {
     "textlint": "^15.2.0",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
