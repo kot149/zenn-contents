@@ -15,7 +15,8 @@
       },
       "arabic-kanji-numbers": true,
       "ja-no-mixed-period": false,
-      "no-unmatched-pair": true
+      "no-unmatched-pair": true,
+      "no-exclamation-question-mark": false
     },
     "textlint-rule-spellcheck-tech-word": true,
     "spellcheck-tech-word": true
