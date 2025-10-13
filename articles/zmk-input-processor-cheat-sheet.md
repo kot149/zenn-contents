@@ -3,7 +3,7 @@ title: "ZMK Input Processorチートシート"
 emoji: "🖱️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["zmk", "keyboard"]
-published: false
+published: true
 ---
 
 :::message
