@@ -1,6 +1,6 @@
 ---
-title: "ZMKのInput Processorチートシート"
-emoji: "⌨️"
+title: "ZMK Input Processorチートシート"
+emoji: "🖱️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["zmk", "keyboard"]
 published: false
@@ -13,7 +13,9 @@ published: false
 
 # Input Processorとは
 
-Input Processorは、カーソル移動やスクロールなどのマウス入力(Input)イベント[^1]を受け取り、それに基づいてさまざま処理を実行する機能。
+[公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors)
+
+[ZMK](https://zmk.dev)のInput Processorは、カーソル移動やスクロールなどのマウス入力(Input)イベント[^1]を受け取り、それに基づいてさまざま処理を実行する機能。
 
 さまざな処理とは、例えば
 - カーソルの移動やスクロールの量に倍率をかける(CPIを大きくしたり、小さくしたりする)
@@ -21,18 +23,18 @@ Input Processorは、カーソル移動やスクロールなどのマウス入�
 - カーソル移動をスクロールに変換する
 - カーソルが移動したら一定時間の間特定のレイヤーを有効化する(オートマウスレイヤー)
 
-などがある。
+などがあ挙げられる。これ以外にも、目次に並んでいるような様々な処理が可能である。
 
 [^1]: 入力イベントは、ZMKのベースであるZephyrで提供されているもので、[こちら](https://docs.zephyrproject.org/apidoc/latest/group__input__events.html)にその一覧が記載されている。この中にはマウス関連のイベントの他にキー入力イベントなどもあるが、ZMK(v0.3時点)ではマウス関連のイベントのみが処理可能。
 
-Input Processorの利点はその汎用性である。ZMKのinputシステムを使用して実装されているマウス入力であれば、センサー(ドライバー)が異なっても、Input Processorを使うことで同じ機能を使用できる。従来はセンサーのドライバーごとに機能を実装していたが、その手間を省くことができ、メンテナンス性の向上も期待できる。
+Input Processorの利点はその汎用性にある。ZMKのinputシステムを使用して実装されているマウス入力であれば、センサー(ドライバー)が異なっても、Input Processorを使うことで同じ機能を使用できる。従来はセンサーのドライバーごとに機能を実装していたが、その手間を省くことができ、メンテナンス性の向上も期待できる。
 Input Processorという名前を見て、なんだか抽象的な名前でとっつきにくいと思ったかもしれない(筆者は思った)が、この名前はその汎用性を表していると言える。
 
 # 基本的な設定方法
 
 [公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors/usage#base-processors)
 
-例えば、`&zip_xy_scaler 3 2`と`&zip_temp_layer 5 10000`という名前のInput Processorを使用するには、Input Listenerに対して以下のように記述する。
+例えば、`&zip_xy_scaler 3 2`と`&zip_temp_layer 5 10000`という2つのInput Processorを使用するには、Input Listener(例えば`trackball_listener`)に対して以下のように記述する。
 
 ```dts
 #include <input/processors.dtsi>
@@ -45,10 +47,11 @@ Input Processorという名前を見て、なんだか抽象的な名前でと�
 };
 ```
 
-:::details `&trackball_listener`が参照できない場合
+:::message
+#### Input Listenerの見つけ方
 
-トラックボールを搭載したZMKキーボードなら、`.overlay`ファイルか`.dtsi`ファイルに、以下のような定義がある。トラックボールではない場合や、左右分割型で名前を分けている場合などは、`trackball_listener`とは異なる名前がつけられている可能性がある。
-その場合、`〇〇_listener`という名前や、`compatible = "zmk,input-listener";`が記載されているノードを探し、代わりにそれを使用する。
+トラックボールではない場合(トラックパッド等)や、分割型キーボードの左右で名前を分けている場合などは、`trackball_listener`とは名前が異なる。
+その場合、`.overlay`ファイルや`.dtsi`ファイルの中で、`〇〇_listener`という名前や`compatible = "zmk,input-listener";`が記載されているノードを探し、代わりにそれを使用する。
 
 ```dts
 / {
@@ -60,7 +63,7 @@ Input Processorという名前を見て、なんだか抽象的な名前でと�
 };
 ```
 
-なお、`trackball_listener: trackball_listener`のように`label: name`の形になっていない場合は参照できずビルドに失敗するので、ラベルをつけておく必要がある。
+なお、`trackball_listener: trackball_listener`のように`label: name`の形になっていない場合は参照できずビルドに失敗するので、ラベルをつけておくこと。
 
 ```diff:dts
 / {
@@ -119,7 +122,7 @@ input processorはユーザーが変更し得る設定が多いため、`.keymap
 
 :::details 同じレイヤーに複数のレイヤー別Input Processorを適用する場合
 通常、レイヤー別のInput Processorは最初にマッチしたものだけで処理を終了し、他はスキップされる。
-スキップしないようにするには、`process-next`を設定する。
+スキップしないようにするには、`process-next;`を設定する。
 
 ```dts
 #include <input/processors.dtsi>
@@ -143,7 +146,7 @@ input processorはユーザーが変更し得る設定が多いため、`.keymap
 
 # カーソル移動関連
 
-## カーソル移動量に倍率をかける
+## カーソル移動量に倍率をかける(カーソル移動速度を大きくする/小さくする)
 
 [公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors/scaler)
 
@@ -255,7 +258,7 @@ x方向のみスケールするには、`&zip_x_scaler`を、y方向のみスケ
 };
 ```
 
-## スクロール量に倍率をかける
+## スクロール量に倍率をかける(スクロール速度を大きくする/小さくする)
 
 [公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors/scaler)
 
@@ -282,6 +285,7 @@ x方向またはy方向のみスケールするには、以下の`&zip_scroll_x_
 `#include <zephyr/dt-bindings/input/input-event-codes.h>`が追加で必要なことに注意。
 
 ```dts
+#include <input/processors.dtsi>
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
 / {
@@ -301,6 +305,49 @@ x方向またはy方向のみスケールするには、以下の`&zip_scroll_x_
             codes = <INPUT_REL_WHEEL>;
             track-remainders;
         };
+    };
+};
+
+&trackball_listener {
+    scroller {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_x_scaler 3 2
+        >;
+    };
+};
+```
+
+## スクロールを縦方向に限定する
+
+`&zip_scroll_x_scaler`でx方向のスクロールを0倍にすれば、縦方向のスクロールのみになる。
+
+`#include <zephyr/dt-bindings/input/input-event-codes.h>`が追加で必要なことに注意。
+
+```dts
+#include <input/processors.dtsi>
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    input_processors {
+        zip_scroll_x_scaler: zip_scroll_x_scaler {
+            compatible = "zmk,input-processor-scaler";
+            #input-processor-cells = <2>;
+            type = <INPUT_EV_REL>;
+            codes = <INPUT_REL_HWHEEL>;
+            track-remainders;
+        };
+    };
+};
+
+&trackball_listener {
+    scroller {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_x_scaler 0 1
+        >;
     };
 };
 ```
@@ -426,7 +473,7 @@ https://zenn.dev/kot149/articles/zmk-auto-mouse-layer
 
 # 外部モジュールのInput Processor
 
-ここまでで紹介したInput Processorは、ZMK本体に含まれている公式のInput Processorだが、それ以外に、外部モジュールでもInput Processorを実装可能である。
+ここまでで紹介したInput ProcessorはZMK本体に含まれている公式のInput Processorだが、それ以外に、外部モジュールでもInput Processorを実装可能である。
 ここでは設定方法については詳しくは触れないが、そのいくつか(特に、筆者が使用したことのあるもの)を紹介する。
 
 なお、ここで紹介しているものが全てではない。自分の欲しい機能がこの中にない場合は、GitHubやZMKのDiscordサーバーで検索してみるとよい。また、プログラミングができる人なら自分で新たにモジュールとして作成するという手もある。
