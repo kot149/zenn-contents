@@ -128,11 +128,16 @@ input processorはユーザーが変更し得る設定が多いため、`.keymap
     input-processors = <&zip_xy_scaler 3 2>;
 
     scroller {
-        layers = <1>;
+        layers = <4 5>;
         input-processors = <&zip_xy_to_scroll_mapper>;
         process-next;
     };
-}
+
+    fast_scroller {
+        layers = <5>;
+        input-processors = <&zip_scroll_scaler 3 1>;
+    };
+};
 ```
 :::
 
@@ -202,7 +207,14 @@ x方向のみスケールするには、`&zip_x_scaler`を、y方向のみスケ
 
 ## カーソル移動の方向変更を組み合わせる
 
-例えば、`&zip_xy_transform INPUT_TRANSFORM_XY_SWAP`と`&zip_xy_transform INPUT_TRANSFORM_X_INVERT`を組み合わせるには、`&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)`のように記述する。
+例えば、
+- `&zip_xy_transform INPUT_TRANSFORM_XY_SWAP`
+- `&zip_xy_transform INPUT_TRANSFORM_X_INVERT`
+
+の2つを組み合わせるには、
+`&zip_xy_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)`
+のように記述する。
+
 `#include <dt-bindings/zmk/input_transform.h>`が追加で必要なことに注意。
 
 ```dts
@@ -304,7 +316,13 @@ x方向またはy方向のみスケールするには、以下の`&zip_scroll_x_
 #include <dt-bindings/zmk/input_transform.h>
 
 &trackball_listener {
-    input-processors = <&zip_scroll_transform INPUT_TRANSFORM_XY_SWAP>;
+    scroller {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform INPUT_TRANSFORM_XY_SWAP
+        >;
+    };
 };
 ```
 
@@ -318,7 +336,13 @@ x方向またはy方向のみスケールするには、以下の`&zip_scroll_x_
 #include <dt-bindings/zmk/input_transform.h>
 
 &trackball_listener {
-    input-processors = <&zip_scroll_transform INPUT_TRANSFORM_X_INVERT>;
+    scroller {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform INPUT_TRANSFORM_X_INVERT
+        >;
+    };
 };
 ```
 
@@ -332,13 +356,26 @@ x方向またはy方向のみスケールするには、以下の`&zip_scroll_x_
 #include <dt-bindings/zmk/input_transform.h>
 
 &trackball_listener {
-    input-processors = <&zip_scroll_transform INPUT_TRANSFORM_Y_INVERT>;
+    scroller {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform INPUT_TRANSFORM_Y_INVERT
+        >;
+    };
 };
 ```
 
 ## スクロールの方向変更を組み合わせる
 
-例えば、`&zip_scroll_transform INPUT_TRANSFORM_XY_SWAP`と`&zip_scroll_transform INPUT_TRANSFORM_X_INVERT`を組み合わせるには、`&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)`のように記述する。
+例えば、
+- `&zip_scroll_transform INPUT_TRANSFORM_XY_SWAP`
+- `&zip_scroll_transform INPUT_TRANSFORM_X_INVERT`
+
+の2つを組み合わせるには、
+`&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)`
+のように記述する。
+
 `#include <dt-bindings/zmk/input_transform.h>`が追加で必要なことに注意。
 
 ```dts
@@ -346,7 +383,13 @@ x方向またはy方向のみスケールするには、以下の`&zip_scroll_x_
 #include <dt-bindings/zmk/input_transform.h>
 
 &trackball_listener {
-    input-processors = <&zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)>;
+    scroller {
+        layers = <4>;
+        input-processors = <
+            &zip_xy_to_scroll_mapper
+            &zip_scroll_transform (INPUT_TRANSFORM_XY_SWAP | INPUT_TRANSFORM_X_INVERT)
+        >;
+    };
 };
 ```
 
