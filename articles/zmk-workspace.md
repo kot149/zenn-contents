@@ -6,11 +6,11 @@ topics: ["zmk", "keyboard"]
 published: false
 ---
 
-# はじめに
+# ローカルビルドについて
 
-ZMKファームウェア(正確には、zmk-config)をビルドするにはGitHub Actionsを使用するのが一般的ですが、ビルドが遅い(2分ほどかかる)上に、zipをダウンロードして展開するのも面倒ですよね。まあダウンロードして展開するのはスクリプトで自動化できるにしても、キーマップやモジュール開発を試行錯誤する際に、いちいち2分も待っていられません。
+[ZMKファームウェア](https://zmk.dev)(正確には、zmk-config)をビルドするにはGitHub Actionsを使用するのが一般的ですが、ビルドが遅い(2分ほどかかる)上に、zipをダウンロードして展開するのも面倒ですよね。ダウンロードして展開するのはスクリプトで自動化できるにしても、キーマップやモジュール開発を試行錯誤する際に、いちいち2分も待っていられません。
 
-それを解決するのがローカルビルド、つまり、自分のPC上でビルドすることです。マシンスペックにもよりますが、最短15秒程度でビルドできます。
+それを解決するのがローカルビルド、つまり、自分のPC上でビルドすることです。マシンスペックにもよりますが、15秒程度でビルドできます。
 
 ローカルビルドの手順は[ZMK公式のドキュメント](https://zmk.dev/docs/development/local-toolchain/setup)に記載されていますが、それに従ってやるとかなり面倒くさいです。本記事で使用する[zmk-workspace](https://github.com/kot149/zmk-workspace)は、それを簡単に、便利にできるようにしたものです。
 
@@ -27,7 +27,7 @@ west build -s app -d build/right -b seeeduino_xiao_ble -S studio-rpc-usb-uart \
 
 そして、`-DZMK_EXTRA_MODULES`オプションで指定している外部モジュール、これは`west.yml`に記載しているものですが、手動で`git clone`した上でビルドコマンドに記載する必要があります。GitHub Actionsでのビルドなら自動でやってくれるのに、不便ですよね。1つや2つならまだいいですが、それ以上になってくると耐えられません。
 
-どうしてそんな面倒くさい仕様になっているかというと、GitHub Actionsでのビルドと公式手順のローカルビルドの視点の違いによるものです。これに関しては、snize氏の説明が分かりやすいです。
+どうしてそんな面倒くさい仕様になっているかというと、GitHub Actionsでのビルドと公式手順のローカルビルドの視点の違いが理由です。これに関しては、snize氏の説明が分かりやすいです。
 
 > - **Devcontainer**: ZMK 本体が「主」であり、そこにユーザー設定/モジュールを「追加」するイメージ。
 > - **GitHub Actions**: ユーザー設定/モジュールが「主」であり、その west.yml に従って ZMK 本体などを「取得」し、自身もビルド対象に含めるイメージ。
@@ -39,7 +39,7 @@ west build -s app -d build/right -b seeeduino_xiao_ble -S studio-rpc-usb-uart \
 zmk-workspaceでは、このコマンドを自動で構築します。また、GitHub Actionsのアプローチと同じ方法を取ることで、`west.yml`に記載された外部モジュールを手動でcloneすることなく、自動で解決します。
 :::
 
-zmk-workspaceは、[urob氏](https://github.com/urob)の[zmk-configビルドセットアップ](https://github.com/uraflocob/zmk-config)に基づいています。この場でurob氏にお礼申し上げます。
+zmk-workspaceは、[urob氏](https://github.com/urob)の[zmk-configビルドセットアップ](https://github.com/urob/zmk-config)に基づいています。この場でurob氏にお礼申し上げます。
 
 # 前提知識・環境
 
@@ -63,7 +63,7 @@ Dev Containerを使用する場合は、この項目は飛ばしてください�
 1. https://nixos.org/download/ に従い、Nixをインストールする
 2. ターミナルを開き、[zmk-workspace](https://github.com/kot149/zmk-workspace)をcloneする
    :::message alert
-   Windowsの場合は、WSLの中で操作してください。ただし、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。Windows上のディレクトリや、WinodwsとWSL/コンテナの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
+   Windowsの場合は、WSLの中で操作してください。ただし、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。WinodwsとWSLの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
    :::
    ```sh
    git clone https://github.com/kot149/zmk-workspace.git
@@ -81,7 +81,7 @@ Dev Containerを使用する場合は、この項目は飛ばしてください�
 
    ```sh
    # direnvとnix-direnvをインストールする
-   nix profile install nixpkgs#direnv nixpkgs#nix-direnv
+   nix profile add nixpkgs#direnv nixpkgs#nix-direnv
 
    # シェルフックを設定する
    echo 'eval "$(direnv hook bash)"' >> ~/.bashrc
@@ -108,7 +108,7 @@ Nixを使用する場合は、この項目は飛ばしてください。
 2. Dockerをインストールする https://docs.docker.com/get-docker/
 3. ターミナルを開き、[zmk-workspace](https://github.com/kot149/zmk-workspace)をcloneする
    :::message alert
-   Windowsの場合は、WSLの中で操作してください。ただし、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。Windows上のディレクトリや、WinodwsとWSL/コンテナの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
+   Windowsの場合は、WSLの中で操作してください。ただし、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。WinodwsとWSL/コンテナの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
    :::
    ```sh
    git clone https://github.com/kot149/zmk-workspace.git
@@ -170,6 +170,6 @@ Nixを使用する場合は、この項目は飛ばしてください。
 - 再度ビルドを行った場合は、キャッシュが使用されます。キャッシュなしでビルドするには、`-p`オプションを指定して`just build シールド名 -p`を実行します。
 - 別のzmk-configでビルドするには、`config/`ディレクトリの中に、別のzmk-configをcloneし、`just init config/zmk-config-xxx`からやり直します。
 - モジュールを追加するには、`config/zmk-config-xxx/config/west.yml`にモジュールを追加した後、`just update`を実行し、`just build`します。
-- モジュールやZMK本体のソースコードをいじるには、zmk-workspace内にzmkやモジュールがcloneされているので、その中のモジュールのソースコードをいじる。再度ビルドすれば、いじったコードが反映されます。
+- モジュールやZMK本体のソースコードをいじるには、zmk-workspace内にzmkやモジュールがcloneされているので、それをいじります。再度ビルドすれば、いじったコードが反映されます。
 - cloneされるモジュールを`modules/`フォルダの中にまとめるには、`west.yml`の`projects`の各項目に`path: modules/module-name`を追加すると、`modules/module-name/`にcloneされるようになります。
 :::
