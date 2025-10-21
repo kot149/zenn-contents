@@ -3,7 +3,7 @@ title: "zmk-workspaceで簡単にZMKファームウェアをローカルビル�
 emoji: "🌟"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["zmk", "keyboard"]
-published: false
+published: true
 ---
 
 # ローカルビルドについて
