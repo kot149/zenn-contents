@@ -10,7 +10,7 @@ published: false
 
 [ZMKファームウェア](https://zmk.dev)(正確には、zmk-config)をビルドするにはGitHub Actionsを使用するのが一般的ですが、ビルドが遅い(2分ほどかかる)上に、zipをダウンロードして展開するのも面倒ですよね。ダウンロードして展開するのはスクリプトで自動化できるにしても、キーマップやモジュール開発を試行錯誤する際に、いちいち2分も待っていられません。
 
-それを解決するのがローカルビルド、つまり、自分のPC上でビルドすることです。マシンスペックにもよりますが、15秒程度でビルドできます。
+それを解決するのがローカルビルド、つまり、自分のPC上でビルドすることです。マシンスペックにもよりますが、筆者の環境だと15秒程度でビルドできます。
 
 ローカルビルドの手順は[ZMK公式のドキュメント](https://zmk.dev/docs/development/local-toolchain/setup)に記載されていますが、それに従ってやるとかなり面倒くさいです。本記事で使用する[zmk-workspace](https://github.com/kot149/zmk-workspace)は、それを簡単に、便利にできるようにしたものです。
 
@@ -23,7 +23,7 @@ west build -s app -d build/right -b seeeduino_xiao_ble -S studio-rpc-usb-uart \
        -DZMK_EXTRA_MODULES=/workspaces/zmk-modules/zmk-pmw3610-driver
 ```
 
-まずコマンドが長すぎてキレそうになります。(環境変数で指定もできたりしますが、本質的に手間は変わりません。) さらにパスは相対パスではなく絶対パスでないといけないという罠があり、初めて試す人はそこでハマります。
+まずコマンドが長すぎてキレそうになります。(環境変数で指定もできたりしますが、本質的に手間は変わりません。) パスは相対パスではなく絶対パスでないといけないという罠があり、初めて試す人はそこでハマります。
 
 そして、`-DZMK_EXTRA_MODULES`オプションで指定している外部モジュール、これは`west.yml`に記載しているものですが、手動で`git clone`した上でビルドコマンドに記載する必要があります。GitHub Actionsでのビルドなら自動でやってくれるのに、不便ですよね。1つや2つならまだいいですが、それ以上になってくると耐えられません。
 
@@ -46,7 +46,7 @@ zmk-workspaceは、[urob氏](https://github.com/urob)の[zmk-configビルドセ�
 - 基本的なGitの操作・ターミナル操作(`cd`とか`git clone`とか)
 - Windowsの場合、WSLがインストールされていること
 
-# 準備
+# セットアップ
 
 zmk-workspaceはセットアップの方法として[Nix](https://nixos.org)を使用する方法と[Dev Container](https://containers.dev)を使用する方法の2つをサポートしています。どちらかを選択して進めてください。
 
@@ -164,12 +164,9 @@ Nixを使用する場合は、この項目は飛ばしてください。
    just flash roBa_R -r
    ```
 
-
-:::message
-### 補足
+## 補足
 - 再度ビルドを行った場合は、キャッシュが使用されます。キャッシュなしでビルドするには、`-p`オプションを指定して`just build シールド名 -p`を実行します。
 - 別のzmk-configでビルドするには、`config/`ディレクトリの中に、別のzmk-configをcloneし、`just init config/zmk-config-xxx`からやり直します。
 - モジュールを追加するには、`config/zmk-config-xxx/config/west.yml`にモジュールを追加した後、`just update`を実行し、`just build`します。
 - モジュールやZMK本体のソースコードをいじるには、zmk-workspace内にzmkやモジュールがcloneされているので、それをいじります。再度ビルドすれば、いじったコードが反映されます。
 - cloneされるモジュールを`modules/`フォルダの中にまとめるには、`west.yml`の`projects`の各項目に`path: modules/module-name`を追加すると、`modules/module-name/`にcloneされるようになります。
-:::
