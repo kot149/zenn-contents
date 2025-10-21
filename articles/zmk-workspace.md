@@ -71,7 +71,11 @@ Dev Containerを使用する場合は、この項目は飛ばしてください�
    ```sh
    cd zmk-workspace
    ```
-3. nix developを実行する。以下、この中で作業する
+3. nix developコマンドが使えるように設定する
+   ```sh
+   mkdir -p ~/.config/nix && echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+   ```
+4. nix developを実行する。以下、この中で作業する
    ```sh
    nix develop
    ```
