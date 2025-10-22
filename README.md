@@ -22,7 +22,7 @@ Or with slug specified:
 bun new --slug my-awesome-article
 ```
 
-## Preview an article
+## Preview
 
 ```sh
 bun dev
@@ -38,7 +38,7 @@ This is a message.
 :::
 ```
 
-### Important Message Block (Red background with warning icon)
+### Important Message Block (Red background with info icon)
 
 ```markdown
 :::message alert
