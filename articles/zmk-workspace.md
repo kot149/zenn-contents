@@ -61,10 +61,10 @@ Dev Containerを使用する場合は、この項目は飛ばして、[Dev Conta
 :::
 
 1. https://nixos.org/download/ に従い、Nixをインストールする
-2. ターミナルを開き、[zmk-workspace](https://github.com/kot149/zmk-workspace)をcloneする
    :::message alert
    Windowsの場合は、WSLの中で操作してください。ただし、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。WinodwsとWSLの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
    :::
+2. ターミナルを開き、[zmk-workspace](https://github.com/kot149/zmk-workspace)をcloneする
    ```sh
    git clone https://github.com/kot149/zmk-workspace.git
    ```
@@ -81,6 +81,8 @@ Dev Containerを使用する場合は、この項目は飛ばして、[Dev Conta
    ```
 
    :::details オプション: direnvを使用して`nix develop`の実行を省略する
+   以下のコマンドを実行することで、`nix develop`を実行しなくてもディレクトリに移動するだけで自動で有効化されるようになります。
+
    以下はbashを使用している場合の手順です。zshなど他のシェルを使用している場合は、適宜読み替えてください。
 
    ```sh
@@ -97,7 +99,7 @@ Dev Containerを使用する場合は、この項目は飛ばして、[Dev Conta
    # 設定を再読み込みする
    source ~/.bashrc
 
-   # direnvを有効化する
+   # zmk-workspaceでdirenvの有効化を許可する
    direnv allow
    ```
    :::
