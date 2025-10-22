@@ -57,7 +57,7 @@ Winodws/macOSの場合、Nixならuf2ファイルの書き込みを自動化で�
 ## Nixによるセットアップ
 
 :::message
-Dev Containerを使用する場合は、この項目は飛ばしてください。
+Dev Containerを使用する場合は、この項目は飛ばして、[Dev Containerによるセットアップ](#dev-containerによるセットアップ)へ進んでください。
 :::
 
 1. https://nixos.org/download/ に従い、Nixをインストールする
@@ -105,7 +105,7 @@ Dev Containerを使用する場合は、この項目は飛ばしてください�
 ## Dev Containerによるセットアップ
 
 :::message
-Nixを使用する場合は、この項目は飛ばしてください。
+Nixを使用する場合は、この項目は飛ばして、[ビルド](#ビルド)へ進んでください。
 :::
 
 1. VSCodeをインストールする https://code.visualstudio.com/download
