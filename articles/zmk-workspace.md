@@ -44,13 +44,13 @@ zmk-workspaceは、[urob氏](https://github.com/urob)の[zmk-configビルドセ�
 # 前提知識・環境
 
 - 基本的なGitの操作・ターミナル操作(`cd`とか`git clone`とか)
-- Windowsの場合、WSLがインストールされていること
+- Windowsの場合、WSLがインストールされていること(NixまたはDev Containerを使用するために必要です)
 
 # セットアップ
 
 zmk-workspaceはセットアップの方法として[Nix](https://nixos.org)を使用する方法と[Dev Container](https://containers.dev)を使用する方法の2つをサポートしています。どちらかを選択して進めてください。
 
-Winodws/macOSの場合、Nixならuf2ファイルの書き込みを自動化できるようにしている[^1]ので、Nixの方がおすすめです。
+Winodws/macOSの場合、Nixならuf2ファイルの書き込みを自動化するスクリプトを用意している[^1]ので、Nixの方がおすすめです。
 
 [^1]: Dev Containerでもコンテナの外から実行して書き込みを自動化するスクリプトを作ればできますが、Nixを使用した方が楽です。
 
@@ -61,19 +61,20 @@ Dev Containerを使用する場合は、この項目は飛ばして、[Dev Conta
 :::
 
 1. https://nixos.org/download/ に従い、Nixをインストールする
+2. nix-commandを使えるように設定する
+   ```sh
+   mkdir -p ~/.config/nix && echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
+   ```
+3. Nixのインストールを反映するため、ターミナルを再起動する
+3. [zmk-workspace](https://github.com/kot149/zmk-workspace)をcloneする
    :::message alert
-   Windowsの場合は、WSLの中で操作してください。ただし、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。WinodwsとWSLの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
+   Windowsの場合は、WSLネイティブのディレクトリ(Windows側と同期されている`/mnt/c/`などのディレクトリ**以外**)で操作してください。WinodwsとWSLの間で同期されているディレクトリでビルドすると、ビルドが大幅に遅くなります。
    :::
-2. ターミナルを開き、[zmk-workspace](https://github.com/kot149/zmk-workspace)をcloneする
    ```sh
    git clone https://github.com/kot149/zmk-workspace.git
    ```
    ```sh
    cd zmk-workspace
-   ```
-3. nix developコマンドが使えるように設定する
-   ```sh
-   mkdir -p ~/.config/nix && echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
    ```
 4. nix developを実行する。以下、この中で作業する
    ```sh
