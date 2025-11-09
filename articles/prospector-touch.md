@@ -55,6 +55,11 @@ Prospector Scannerの使用方法については、以下の記事を参照し�
 
 https://note.com/heace/n/n4cbf41ef1c57
 
+以下で紹介している変更はこちらのリポジトリの`aea61dd`コミット時点のものに全て反映されています。
+自分で書き換えるのが面倒くさい人はこれをビルドすればそのまま使用できます。
+
+https://github.com/kot149/zmk-config-prospector-scanner
+
 ## タッチセンサーのドライバーの設定
 
 Waveshare 1.69inch Round LCD Display Moduleは、タッチコントローラーにHynitron CST816Sを用いています。幸いなことに、[ZephyrにCST816Sのドライバーが用意されている](https://docs.zephyrproject.org/latest/build/dts/api/bindings/input/hynitron%2Ccst816s.html)ので、これを使用します。
