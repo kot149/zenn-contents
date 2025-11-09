@@ -498,6 +498,12 @@ https://github.com/kot149/zmk-mouse-gesture
 
 https://github.com/halfdane/zmk-input-gestures
 
+## 絶対座標イベントを相対座標へ変換する
+
+絶対座標イベントを相対座標へ変換するInput Processorを提供するモジュール。
+トラックパッドなどでは絶対座標イベントを発行する場合も多いが、ZMKはカーソル移動として相対座標を用いるため、これを用いて変換する。
+
+https://github.com/halfdane/zmk-input-processors
 
 ## スクロール方向を自動で縦方向/横方向にロックする
 
