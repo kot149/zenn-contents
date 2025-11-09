@@ -62,7 +62,7 @@ https://github.com/kot149/zmk-config-prospector-scanner
 
 ## 既存のI2Cの設定の削除
 
-`config/boards/seeeduino_xiao_ble.overlay`にI2Cの設定がありますが、本家Prospectorにはないもので、使われているのかどうか・動作するのかどうかよく分からない、削除しても問題ないように見えたので削除しました。
+`config/boards/seeeduino_xiao_ble.overlay`にI2Cの設定がありますが、これは本家Prospectorにはないもので、使われているのかどうか・動作するのかどうかよく分からない、削除しても問題ないように見えたので、ファイルごと削除しました。
 
 ## タッチセンサーのドライバーの設定
 
