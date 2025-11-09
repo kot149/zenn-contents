@@ -60,6 +60,10 @@ https://note.com/heace/n/n4cbf41ef1c57
 
 https://github.com/kot149/zmk-config-prospector-scanner
 
+## 既存のI2Cの設定の削除
+
+`config/boards/seeeduino_xiao_ble.overlay`にI2Cの設定がありますが、本家Prospectorにはないもので、使われているのかどうか・動作するのかどうかよく分からない、削除しても問題ないように見えたので削除しました。
+
 ## タッチセンサーのドライバーの設定
 
 Waveshare 1.69inch Round LCD Display Moduleは、タッチコントローラーにHynitron CST816Sを用いています。幸いなことに、[ZephyrにCST816Sのドライバーが用意されている](https://docs.zephyrproject.org/latest/build/dts/api/bindings/input/hynitron%2Ccst816s.html)ので、これを使用します。
