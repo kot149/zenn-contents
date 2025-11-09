@@ -16,7 +16,7 @@ https://github.com/carrefinho/prospector
 https://shop.beekeeb.jp/products/zmk-wireless-dongle-prospector-diy-kit
 
 
-本家GitHubのREADMEに以下のように書いてあります。
+本家GitHubのREADMEを見ると、以下のように書いてあります。
 
 > Waveshare 1.69inch Round LCD Display Module **with Touch**
 > Non-touch version has different mounting pattern and will **NOT** fit
