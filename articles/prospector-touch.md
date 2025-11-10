@@ -97,13 +97,15 @@ CONFIG_INPUT_CST816S=y
 CONFIG_INPUT_CST816S_INTERRUPT=y
 ```
 
-これで、タッチセンサーの入力が読み取られ、入力イベントが発行されます。[ZephyrのCST816Sドライバーのソースコード](https://github.com/zephyrproject-rtos/zephyr/blob/v3.5-branch/drivers/input/input_cst816s.c)を見ると、具体的には以下のInput Eventを発行していることがわかります。
+これで、タッチセンサーの入力が読み取られ、入力イベントが発行されます。[ZephyrのCST816Sドライバーのソースコード](https://github.com/zephyrproject-rtos/zephyr/blob/v3.5-branch/drivers/input/input_cst816s.c)を見ると、具体的には以下の入力イベントを発行していることがわかります[^1]。
+
+[^1]: 最新のドライバーではこの他にもCST816Sが認識したジェスチャーをデバイス固有の入力イベントとして報告する機能が実装されていますが、2025/11/10時点でZMKが使用しているZephyr v3.5にはそれが含まれていません。
 
 - `INPUT_BTN_TOUCH`: 画面のタッチ
 - `INPUT_ABS_X`: タッチしたxの絶対座標
 - `INPUT_ABS_Y`: タッチしたyの絶対座標
 
-これらはZMKの標準機能で直接扱えないので、何かしら変換をかますなどする必要があります。
+これらはZMKの標準機能で直接扱えないので、何かしら変換をかますか、またはそれらを直接扱えるモジュールを使用する必要があります。
 
 ## マウスカーソル移動ができるようにする
 
