@@ -97,7 +97,7 @@ CONFIG_INPUT_CST816S=y
 CONFIG_INPUT_CST816S_INTERRUPT=y
 ```
 
-これで、タッチセンサーの入力が読み取られ、入力イベントが発行されます。[ZephyrのCST816Sドライバーのソースコード](https://github.com/zephyrproject-rtos/zephyr/blob/v3.5-branch/drivers/input/input_cst816s.c)を見ると、具体的には以下の入力イベントを発行していることがわかります[^1]。
+これで、タッチセンサーの入力が読み取られ、入力イベントが発行されます。[ドライバーのソースコード](https://github.com/zephyrproject-rtos/zephyr/blob/v3.5-branch/drivers/input/input_cst816s.c)を見ると、具体的には以下の入力イベントを発行していることがわかります[^1]。
 
 [^1]: 最新のドライバーではこの他にもCST816Sが認識したジェスチャーをデバイス固有の入力イベントとして報告する機能が実装されていますが、2025/11/10時点でZMKが使用しているZephyr v3.5にはそれが含まれていません。
 
