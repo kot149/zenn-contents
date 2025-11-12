@@ -180,6 +180,16 @@ x方向のみスケールするには、`&zip_x_scaler`を、y方向のみスケ
 };
 ```
 
+または、`&zip_xy_swap_mapper`でも同じことができる。
+
+```dts
+#include <input/processors.dtsi>
+
+&trackball_listener {
+    input-processors = <&zip_xy_swap_mapper>;
+};
+```
+
 ## カーソル移動のX方向を反転する
 
 `&zip_xy_transform INPUT_TRANSFORM_X_INVERT`を用いる。
