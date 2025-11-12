@@ -61,8 +61,8 @@ Add more colons to parent block to nest message blocks.
 ```markdown
 ::::message
 This is a message.
-:::
 :::message alert
 This is an important message.
+:::
 ::::
 ```
