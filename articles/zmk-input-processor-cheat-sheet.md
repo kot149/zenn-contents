@@ -462,6 +462,8 @@ https://zenn.dev/kot149/articles/zmk-auto-mouse-layer
 
 ## マウスクリックをキー入力に変換する
 
+[公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors/behaviors)
+
 下記の`&zip_button_behaviors`は、左クリックをAキーに、右クリックをBキーに、中央クリックをCキーに変換する。
 
 :::message
