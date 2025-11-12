@@ -483,6 +483,77 @@ https://zenn.dev/kot149/articles/zmk-auto-mouse-layer
 };
 ```
 
+## 任意の入力イベントを別のイベントへマップする
+
+[公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors/code-mapper#user-defined-instances)
+
+[カーソル移動をスクロールに変換する](#カーソル移動をスクロールに変換する)の汎用バージョンで、自分でイベントの`type`と`code`のマッピングを設定できる。
+ただし、異なる`type`のイベントへマップすることはできない。
+
+以下の例では、スクロールをカーソル移動へ変換する。
+
+```dts
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    input_processors {
+        zip_scroll_to_xy_mapper: zip_scroll_to_xy_mapper {
+            compatible = "zmk,input-processor-code-mapper";
+            #input-processor-cells = <0>;
+            type = <INPUT_EV_REL>;
+            map = <INPUT_REL_WHEEL INPUT_REL_Y>,
+                  <INPUT_REL_HWHEEL INPUT_REL_X>;
+        };
+    };
+};
+
+&trackball_listener {
+    input-processors = <&zip_scroll_to_xy_mapper>;
+};
+```
+
+入力イベントの`type`と`code`の一覧は[こちら](https://github.com/zmkfirmware/zephyr/blob/v3.5.0%2Bzmk-fixes/include/zephyr/dt-bindings/input/input-event-codes.h)。
+
+## 任意の入力イベントをキー入力に変換する
+
+[公式ドキュメントへのリンク](https://zmk.dev/docs/keymaps/input-processors/code-mapper#user-defined-instances)
+
+[マウスクリックをキー入力に変換する](#マウスクリックをキー入力に変換する)の汎用バージョンで、自分でイベントの`type`と`code`のマッピングを設定できる。
+::::message
+これはボタンクリックなど、`type`が`INPUT_EV_KEY`のイベントを変換することを目的としており、カーソル移動などの`type`が`INPUT_EV_REL `のイベントの変換には使用できない。
+:::details 詳細
+`type`が`INPUT_EV_KEY`のイベントは、ON・OFの2回のイベントでセットになっているが、`type`が`INPUT_EV_REL`のイベントはON・OFFの概念がなく、1回のイベントだけで完結する。このため、キーを押したままずっと離さないような挙動になってしまう。
+また、`INPUT_EV_REL`には値(カーソル移動ならカーソルの移動量)の大小や向き(正負)があるが、input-processor-behaviorsはそれを考慮してくれないため、どれだけカーソルが移動したらbehaviorを発火するかの調整とか、向きによって異なるbehaviorを割り当てるといったことができない。
+:::
+カーソル移動などを変換するには、代わりに[input-processor-keybind](#カーソル移動をキー入力に変換する)を使用する。
+::::
+
+以下の例では、マウスボタン4(一般的にブラウザバックと解釈される)をCtrl+Wに、マウスボタン5(一般的にブラウザフォワードと解釈される)をCtrl+Tに変換する。
+
+```dts
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+
+/ {
+    input_processors {
+        zip_mouse_button_tab_control: zip_mouse_button_tab_control {
+            compatible = "zmk,input-processor-behaviors";
+            #input-processor-cells = <0>;
+            type = <INPUT_EV_KEY>;
+            codes    = <INPUT_BTN_3 INPUT_BTN_4>;
+            bindings = <&kp LC(W) &kp LC(T)>;
+        };
+    };
+};
+
+&mkp_input_listener {
+    input-processors = <&zip_mouse_button_tab_control>;
+};
+```
+
+`type`は省略した場合`INPUT_EV_KEY>`になる。
+
+入力イベントの`type`と`code`の一覧は[こちら](https://github.com/zmkfirmware/zephyr/blob/v3.5.0%2Bzmk-fixes/include/zephyr/dt-bindings/input/input-event-codes.h)。
+
 # 外部モジュールのInput Processor
 
 ここまでで紹介したInput ProcessorはZMK本体に含まれている公式のInput Processorだが、それ以外に、外部モジュールでもInput Processorを実装可能である。
