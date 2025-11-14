@@ -57,7 +57,11 @@ Prospector Scannerの使用方法については、以下の記事を参照し�
 https://note.com/heace/n/n4cbf41ef1c57
 
 以下で紹介している変更はこちらのリポジトリの`aea61dd`コミット時点のものに全て反映されています。
-自分で書き換えるのが面倒くさい人はこれをビルドすればそのまま使用できます。
+~~自分で書き換えるのが面倒くさい人はこれをビルドすればそのまま使用できます。~~
+
+:::message
+このリポジトリではIRQとRSTのピンが逆になっています。後ほど修正します。
+:::
 
 https://github.com/kot149/zmk-config-prospector-scanner
 
@@ -76,8 +80,8 @@ Waveshare 1.69inch Round LCD Display Moduleは、タッチコントローラー�
         compatible = "hynitron,cst816s";
         reg = <0x15>;
         status = "okay";
-        rst-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;   // D0 = P0.02
-        irq-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;   // D1 = P0.03
+        irq-gpios = <&gpio0 2 GPIO_ACTIVE_LOW>;   // D0 = P0.02
+        rst-gpios = <&gpio0 3 GPIO_ACTIVE_LOW>;   // D1 = P0.03
     };
 };
 
@@ -96,6 +100,10 @@ CONFIG_ZMK_POINTING=y
 CONFIG_INPUT_CST816S=y
 CONFIG_INPUT_CST816S_INTERRUPT=y
 ```
+
+:::message
+2025/11/14まで、上記IRQとRSTのピンが逆になった状態で記載していました。申し訳ありません。現在は修正済みです。
+:::
 
 これで、タッチセンサーの入力が読み取られ、入力イベントが発行されます。[ドライバーのソースコード](https://github.com/zephyrproject-rtos/zephyr/blob/v3.5-branch/drivers/input/input_cst816s.c)を見ると、具体的には以下の入力イベントを発行していることがわかります[^1]。
 
