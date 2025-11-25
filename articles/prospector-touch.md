@@ -56,9 +56,13 @@ Prospector Scannerの使用方法については、以下の記事を参照し�
 
 https://note.com/heace/n/n4cbf41ef1c57
 
-以下で紹介している変更はこちらのリポジトリの`trackpad`ブランチに全て反映されています。
-自分で書き換えるのが面倒くさい人はこれをビルドすればそのまま使用できます。
-(2025/11/14追記: ピン配置が間違っていたため修正しました。)
+:::message
+Prospector Scannerのv2.0.0以降では、タッチによるProspectorのGUI操作機能が追加されています。詳細: https://note.com/heace/n/nacf15365304c
+
+v2.0.0以降のタッチ機能を使用する場合は、この記事の以下の変更は不要です。
+:::
+
+以下で紹介している変更は[こちらのリポジトリの`trackpad`ブランチ](https://github.com/kot149/zmk-config-prospector-scanner/tree/trackpad)に全て反映されています。
 
 https://github.com/kot149/zmk-config-prospector-scanner/tree/trackpad
 
@@ -316,6 +320,7 @@ https://github.com/kot149/zmk-mouse-gesture
 - タップでキー入力できるようにする
 - ダブルタップできるようにする
 - CST816S側で実装されているジェスチャー機能の活用
-- タッチまたはジェスチャーでProspector ScannerのGUI操作
+- ~~タッチまたはジェスチャーでProspector ScannerのGUI操作~~
+  - Prospector Scannerのv2.0.0で、タッチによるProspectorのGUI操作機能が追加されました。詳細: https://note.com/heace/n/nacf15365304c
 
 などなど、色々やれることは多そうです。気が向いたらやってみようと思います。やったらこの記事に追記します。
