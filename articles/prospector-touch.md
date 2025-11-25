@@ -30,19 +30,19 @@ https://shop.beekeeb.jp/products/zmk-wireless-dongle-prospector-diy-kit
 # 配線・はんだ付け
 
 タッチ機能を使用するためにはタッチパネル用のピンの配線が必要ですが、本家のProspectorでは配線されていません。この記事では、以下の画像のように配線しました。下4本の手書きで線を追加している`TP_`で始まるピンがタッチ用のピンです。
-(一応、オプションのモーションセンサー(画像右側で見切れているもの)と共存できるようにピンを選んだつもりです。)
 
 ![](https://storage.googleapis.com/zenn-user-upload/0e63e5252ded-20251109.png)
 
 (画像は[本家の組み立てマニュアル](https://github.com/carrefinho/prospector/blob/main/docs/prospector_assembly_manual.jpg) に2025/11/09に手書きで書き加えたものです。)
 
-beekeeb.jpで販売されているProspectorの組み立てキットでは配線を簡単にするためのコネクタボードが使用されていますが、このコネクタボードでもタッチパネル用のピンの配線がされていません。なので、そのピンを自力で配線・はんだ付けをする必要があります。
-**※追記: 今後タッチ用のピンも配線されたバージョンに更新される** とのことです！ ありがたい…
+:::message
+**2025/11/17以降にbeekeeb.jpで購入した場合は、タッチパネル用のピンの配線がされています。** それ以前に購入した場合は、アップデート版のPCBを送ってもらえます(詳細は[こちら](https://x.com/beekeeb_jp/status/1990332493757841570))。ありがたすぎる…。
+:::
 
-https://x.com/beekeeb_jp/status/1987787211484566011
+https://x.com/beekeeb_jp/status/1990316922697859346
 
-更新前のbeekeebのコネクタボードの場合、実際に配線した写真はこんな感じになります。
-(こちらの写真はおぐさんからお借りしました([リンク](https://x.com/ogu_key/status/1987696836342349878))。ありがとうございます🙏)
+
+更新前のbeekeeb.jpのPCBに手動で配線することも可能です。実際に配線した写真はこんな感じになります。(こちらの写真はおぐさんからお借りしました[[リンク](https://x.com/ogu_key/status/1987696836342349878)]。ありがとうございます🙏)
 
 ![](https://storage.googleapis.com/zenn-user-upload/eaf071f36a21-20251110.png)
 
