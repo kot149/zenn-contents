@@ -56,11 +56,11 @@ Prospector Scannerの使用方法については、以下の記事を参照し�
 
 https://note.com/heace/n/n4cbf41ef1c57
 
-以下で紹介している変更はこちらのリポジトリの~~`aea61dd`~~`113d49c`コミット時点のものに全て反映されています。
+以下で紹介している変更はこちらのリポジトリの`trackpad`ブランチに全て反映されています。
 自分で書き換えるのが面倒くさい人はこれをビルドすればそのまま使用できます。
 (2025/11/14追記: ピン配置が間違っていたため修正しました。)
 
-https://github.com/kot149/zmk-config-prospector-scanner
+https://github.com/kot149/zmk-config-prospector-scanner/tree/trackpad
 
 ## 既存のI2Cの設定の削除
 
