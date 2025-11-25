@@ -32,9 +32,8 @@ https://shop.beekeeb.jp/products/zmk-wireless-dongle-prospector-diy-kit
 タッチ機能を使用するためにはタッチパネル用のピンの配線が必要ですが、本家のProspectorでは配線されていません。この記事では、以下の画像のように配線しました。下4本の手書きで線を追加している`TP_`で始まるピンがタッチ用のピンです。
 
 :::message
-**2025/11/17以降にbeekeeb.jpで購入した場合は、タッチパネル用のピンの配線がされています。** それ以前に購入した場合は、アップデート版のPCBを送ってもらえます(詳細は[こちら](https://x.com/beekeeb_jp/status/1990332493757841570))。ありがたすぎる…。
+2025/11/17以降にbeekeeb.jpで購入した場合は、タッチパネル用のピンの配線がされているため、追加の配線は不要です。
 :::
-
 
 ![](https://storage.googleapis.com/zenn-user-upload/0e63e5252ded-20251109.png)
 
@@ -42,8 +41,10 @@ https://shop.beekeeb.jp/products/zmk-wireless-dongle-prospector-diy-kit
 
 https://x.com/beekeeb_jp/status/1990316922697859346
 
+2025/11/17より前にbeekeeb.jpで購入した場合、アップデート版のPCBを送ってもらえます(詳細は[こちら](https://x.com/beekeeb_jp/status/1990332493757841570))。太っ腹すぎる。
+ただし、古いバージョンの基板で既にはんだ付けを済ませている場合(または古いバージョンをはんだ付け済み完成品で購入した場合)は、古いPCBのはんだを剥がして新しいPCBに付け替えるよりも、古いPCBのまま追加配線する方が簡単です。
 
-更新前のbeekeeb.jpのPCBに手動で配線することも可能です。実際に配線した写真はこんな感じになります。(こちらの写真はおぐさんからお借りしました[[リンク](https://x.com/ogu_key/status/1987696836342349878)]。ありがとうございます🙏)
+古いバージョンのbeekeebのPCBに配線した写真はこんな感じになります。(こちらの写真はおぐさんからお借りしました[[リンク](https://x.com/ogu_key/status/1987696836342349878)]。ありがとうございます🙏)
 
 ![](https://storage.googleapis.com/zenn-user-upload/eaf071f36a21-20251110.png)
 
