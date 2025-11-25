@@ -31,13 +31,14 @@ https://shop.beekeeb.jp/products/zmk-wireless-dongle-prospector-diy-kit
 
 タッチ機能を使用するためにはタッチパネル用のピンの配線が必要ですが、本家のProspectorでは配線されていません。この記事では、以下の画像のように配線しました。下4本の手書きで線を追加している`TP_`で始まるピンがタッチ用のピンです。
 
-![](https://storage.googleapis.com/zenn-user-upload/0e63e5252ded-20251109.png)
-
-(画像は[本家の組み立てマニュアル](https://github.com/carrefinho/prospector/blob/main/docs/prospector_assembly_manual.jpg) に2025/11/09に手書きで書き加えたものです。)
-
 :::message
 **2025/11/17以降にbeekeeb.jpで購入した場合は、タッチパネル用のピンの配線がされています。** それ以前に購入した場合は、アップデート版のPCBを送ってもらえます(詳細は[こちら](https://x.com/beekeeb_jp/status/1990332493757841570))。ありがたすぎる…。
 :::
+
+
+![](https://storage.googleapis.com/zenn-user-upload/0e63e5252ded-20251109.png)
+
+(画像は[本家の組み立てマニュアル](https://github.com/carrefinho/prospector/blob/main/docs/prospector_assembly_manual.jpg) に2025/11/09に手書きで書き加えたものです。)
 
 https://x.com/beekeeb_jp/status/1990316922697859346
 
@@ -48,6 +49,11 @@ https://x.com/beekeeb_jp/status/1990316922697859346
 
 # ファームウェアの書き換え
 
+:::message
+Prospector Scannerのv2.0.0以降では、タッチによるProspectorのGUI操作機能が追加されています。**この機能を使用する場合は、この記事で紹介しているコードの書き換えは不要です。**
+詳細: https://note.com/heace/n/nacf15365304c
+:::
+
 今回はProspector Scannerという、Prospectorを独立したデバイスとして簡単に使用できるようにしたファームウェアを用います。
 
 https://github.com/t-ogura/zmk-config-prospector
@@ -55,12 +61,6 @@ https://github.com/t-ogura/zmk-config-prospector
 Prospector Scannerの使用方法については、以下の記事を参照してください。
 
 https://note.com/heace/n/n4cbf41ef1c57
-
-:::message
-Prospector Scannerのv2.0.0以降では、タッチによるProspectorのGUI操作機能が追加されています。詳細: https://note.com/heace/n/nacf15365304c
-
-v2.0.0以降のタッチ機能を使用する場合は、この記事の以下の変更は不要です。
-:::
 
 以下で紹介している変更は[こちらのリポジトリの`trackpad`ブランチ](https://github.com/kot149/zmk-config-prospector-scanner/tree/trackpad)に全て反映されています。
 
