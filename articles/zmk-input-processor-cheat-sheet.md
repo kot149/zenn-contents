@@ -588,6 +588,13 @@ https://github.com/halfdane/zmk-input-gestures
 
 https://github.com/halfdane/zmk-input-processors
 
+## カーソル移動に加速度をつける
+
+カーソル移動に加速度をつけるInput Processorを提供するモジュール。
+加速度をつけたカーソル移動を[スクロールに変換](#カーソル移動をスクロールに変換する)することでスクロールにも使える。
+
+https://github.com/oleksandrmaslov/zmk-pointing-acceleration
+
 ## スクロール方向を自動で縦方向/横方向にロックする
 
 360°のスクロールを、x軸またはy軸の近い方へ自動でスナップするInput Processorを提供するモジュール。
