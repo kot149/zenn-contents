@@ -64,7 +64,7 @@ Dev Containerを使用する場合は、この項目は飛ばして、[Dev Conta
    ```sh
    curl -sSfL https://artifacts.nixos.org/nix-installer | sh -s -- install --enable-flakes
    ```
-   [^2]: Nixは複数のインストール方法があります。[こちらの記事](https://zenn.dev/trifolium/articles/da11a428c53f65) が詳しいです。
+   [^2]: Nixには複数のインストール方法が存在します。[こちらの記事](https://zenn.dev/trifolium/articles/da11a428c53f65) が詳しいです。
 2. nix-commandを使えるように設定する
    ```sh
    mkdir -p ~/.config/nix && echo 'experimental-features = nix-command flakes' >> ~/.config/nix/nix.conf
