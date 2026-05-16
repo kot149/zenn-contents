@@ -595,6 +595,13 @@ https://github.com/halfdane/zmk-input-processors
 
 https://github.com/oleksandrmaslov/zmk-pointing-acceleration
 
+## カーソル移動・スクロールに慣性をつける
+
+カーソル移動・スクロールに慣性をつけるInput Processorを提供するモジュール。
+特にトラックパッドでこれを使用することで操作感が向上する。
+
+https://github.com/amgskobo/zmk-input-inertia
+
 ## スクロール方向を自動で縦方向/横方向にロックする
 
 360°のスクロールを、x軸またはy軸の近い方へ自動でスナップするInput Processorを提供するモジュール。
