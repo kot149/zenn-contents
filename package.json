@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "dev": "zenn preview",
-    "preview": "zenn preview",
+    "dev": "portless --script preview",
+    "preview": "zenn preview --port $PORT",
     "new": "zenn new:article",
     "update-zenn-cli": "bun install zenn-cli@latest"
   },
   "devDependencies": {
+    "portless": "^0.13.0",
     "textlint": "^15.2.3",
     "textlint-rule-preset-ja-spacing": "^2.4.3",
     "textlint-rule-preset-ja-technical-writing": "^12.0.2",
