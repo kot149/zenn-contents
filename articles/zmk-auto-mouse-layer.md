@@ -181,7 +181,12 @@ Input Processorを使用したAMLでは、`excluded-positions`を設定すると
 
 :::message
 `excluded-positions`の数字はキーボードのレイアウト次第で変わります。
+roBaの場合は以下の通りです。
+
+![](/images/roBa_key_position.png)
+
 positionを知るには、[Keymap Editor](https://nickcoutsos.github.io/keymap-editor/)で適当なcomboを作って、keymapファイルのcombo定義から`key-positions`を抜き出すか、[ZMK physical layouts converter](https://zmk-physical-layout-converter.streamlit.app)にレイアウト定義JSONファイルを貼り付けて確認するのが簡単です。
+
 :::
 
 ### マウスキーを押したらタイムアウトを延長する
